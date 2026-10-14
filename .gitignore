@@ -1,0 +1,28 @@
+# Images VM (plusieurs Go)
+*.img
+*.qcow2
+*.vdi
+*.vmdk
+
+# Backups et anciens dépôts
+vm-backup/
+.git-old/
+*.bak
+*.old
+
+# Python / build
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+build/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

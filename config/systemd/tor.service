@@ -1,0 +1,42 @@
+[Unit]
+Description=Anonymizing overlay network for TCP (The Onion Router)
+After=network.target
+Documentation=https://community.torproject.org/
+
+[Service]
+Type=simple
+User=tor
+Group=tor
+
+# Répertoire runtime géré par systemd (crée /run/tor automatiquement)
+RuntimeDirectory=tor
+RuntimeDirectoryMode=0700
+
+ExecStart=/usr/sbin/tor -f /etc/tor/torrc
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+LimitNOFILE=32768
+Restart=on-failure
+RestartSec=5
+
+# Durcissement systemd (sans casser le runtime dir)
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log/tor /var/lib/tor
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RemoveIPC=true
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
