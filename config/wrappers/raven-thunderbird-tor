@@ -1,0 +1,29 @@
+#!/bin/sh
+# Ravenfantom — Thunderbird sandboxé + Tor
+
+export MOZ_ENABLE_WAYLAND=1
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/10000}"
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
+
+export LIBGL_ALWAYS_SOFTWARE=1
+export GALLIUM_DRIVER=llvmpipe
+export MESA_LOADER_DRIVER_OVERRIDE=swrast
+export MOZ_WEBRENDER=0
+export MOZ_X11_EGL=0
+
+exec bwrap \
+    --ro-bind /usr /usr \
+    --ro-bind /lib /lib \
+    --ro-bind-try /lib64 /lib64 \
+    --ro-bind /etc /etc \
+    --ro-bind /bin /bin \
+    --ro-bind /sbin /sbin \
+    --dev /dev \
+    --proc /proc \
+    --tmpfs /tmp \
+    --tmpfs /var/tmp \
+    --bind /run/user/10000 /run/user/10000 \
+    --bind /home/raven /home/raven \
+    --share-net \
+    --die-with-parent \
+    /usr/bin/thunderbird "$@"

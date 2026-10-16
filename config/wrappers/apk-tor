@@ -1,0 +1,3 @@
+#!/bin/sh
+# Ravenfantom — apk via Tor
+exec torsocks apk "$@"

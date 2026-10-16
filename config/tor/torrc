@@ -29,3 +29,6 @@ SafeLogging 1
 # Ravenfantom — exposition pour Waydroid
 SocksPort 192.168.240.1:9050
 DNSPort 192.168.240.1:5353
+
+# Ravenfantom — TransPort pour Waydroid
+TransPort 192.168.240.1:9040
